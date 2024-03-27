@@ -1,4 +1,4 @@
-package com.spring.security_auth.model;
+package com.spring.security_auth.model.pojo;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
