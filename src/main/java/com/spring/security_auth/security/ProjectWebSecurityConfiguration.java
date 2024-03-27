@@ -1,9 +1,7 @@
 package com.spring.security_auth.security;
 
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -18,7 +16,9 @@ public class ProjectWebSecurityConfiguration{
      */
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests((requests) -> requests.anyRequest().authenticated());
+        http.authorizeHttpRequests((requests) -> requests
+                .requestMatchers("/notices","/contacts").permitAll()
+                .requestMatchers("/myAccounts","/myCards","/myBalances").authenticated());
         http.formLogin(withDefaults());
         http.httpBasic(withDefaults());
         return http.build();
