@@ -25,21 +25,6 @@ public class ProjectWebSecurityConfiguration{
         http.httpBasic(withDefaults());
         return http.build();
     }
-/*
-    @Bean
-    InMemoryUserDetailsManager userDetailsManager() {
-        UserDetails admin = User.withDefaultPasswordEncoder()
-                .username("arif")
-                .password("1234")
-                .roles("admin")
-                .build();
-        UserDetails user = User.withDefaultPasswordEncoder()
-                .username("sumon")
-                .password("1234")
-                .roles("user")
-                .build();
-        return new InMemoryUserDetailsManager(admin, user);
-    }*/
 
     @Bean
     PasswordEncoder passwordEncoder() {
