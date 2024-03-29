@@ -28,7 +28,8 @@ public class CustomerServiceImpl implements CustomerService {
         boolean existsCustomerByEmail = customerRepository.existsCustomerByEmail(email);
         if (existsCustomerByEmail) throw new UsernameNotFoundException("USER_ALREADY_EXIST " + email);
         if (email.isEmpty()) throw new IllegalArgumentException("EMAIL_CAN_NOT_BE_EMPTY");
-        customer.setPassword(passwordEncoder.encode(customer.getPassword()));
+        String encoded = passwordEncoder.encode(customer.getPassword());
+        customer.setPassword(encoded);
 
         return customerRepository.save(customer);
     }

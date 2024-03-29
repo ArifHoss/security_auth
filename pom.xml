@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.spring</groupId>
-	<artifactId>security_auth</artifactId>
+	<artifactId>security_auth2</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>security_auth</name>
+	<name>security_auth2</name>
 	<description>Spring security rest_api project for authentication and authorisation</description>
 	<properties>
 		<java.version>17</java.version>

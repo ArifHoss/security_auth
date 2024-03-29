@@ -1,10 +1,16 @@
 package com.spring.security_auth.model.dto;
 
 import com.spring.security_auth.model.pojo.Customer;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class CustomerMapperImpl implements CustomerMapper{
+
+    private final PasswordEncoder passwordEncoder;
+
     @Override
     public CustomerResponseDto toDto(Customer customer) {
         CustomerResponseDto dto = new CustomerResponseDto();
@@ -19,6 +25,7 @@ public class CustomerMapperImpl implements CustomerMapper{
         Customer customer = new Customer();
         customer.setId(dto.getId());
         customer.setEmail(dto.getEmail());
+        customer.setPassword(passwordEncoder.encode(dto.getPassword()));
         customer.setRole(dto.getRole());
         return customer;
     }
