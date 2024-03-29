@@ -32,4 +32,11 @@ public class CustomerController {
         return customerMapper.toDto(customerService.create(customer));
     }
 
+    /*
+    @PostMapping("/createCustomer")
+    @ResponseStatus(value = HttpStatus.CREATED)
+    public Customer create(@RequestBody Customer customer) {
+        return customerService.create(customer);
+    }*/
+
 }

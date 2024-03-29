@@ -21,9 +21,7 @@ public class ProjectWebSecurityConfiguration {
      */
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
-//        http.csrf(AbstractHttpConfigurer::disable);
-//        http.cors(AbstractHttpConfigurer::disable);
-        http.csrf().disable().authorizeHttpRequests((requests) -> requests
+        http.csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests((requests) -> requests
                 .requestMatchers("/notices", "/contacts", "/customers", "/createCustomer").permitAll()
                 .requestMatchers("/myAccounts", "/myCards", "/myBalances").authenticated());
         http.formLogin(withDefaults());
