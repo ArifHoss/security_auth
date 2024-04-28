@@ -4,7 +4,10 @@ import lombok.Data;
 
 @Data
 public class CustomerResponseDto {
-    private Long id;
+    private int id;
+    private String name;
     private String email;
+    private String mobile_number;
     private String role;
+    private String createDt;
 }

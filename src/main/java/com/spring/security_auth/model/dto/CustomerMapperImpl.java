@@ -11,7 +11,10 @@ public class CustomerMapperImpl implements CustomerMapper{
     public CustomerResponseDto toDto(Customer customer) {
         CustomerResponseDto dto = new CustomerResponseDto();
         dto.setId(customer.getId());
+        dto.setName(customer.getName());
         dto.setEmail(customer.getEmail());
+        dto.setMobile_number(customer.getMobileNumber());
+        dto.setCreateDt(customer.getCreateDt());
         dto.setRole(customer.getRole());
         return dto;
     }
@@ -20,9 +23,12 @@ public class CustomerMapperImpl implements CustomerMapper{
     public Customer toCustomer(CustomerDto dto) {
         Customer customer = new Customer();
         customer.setId(dto.getId());
+        customer.setName(dto.getName());
         customer.setEmail(dto.getEmail());
-        customer.setPassword(dto.getPassword());
+        customer.setMobileNumber(dto.getMobile_number());
+        customer.setPwd(dto.getPwd());
         customer.setRole(dto.getRole());
+        customer.setCreateDt(dto.getCreateDt());
         return customer;
     }
 }

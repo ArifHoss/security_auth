@@ -7,6 +7,7 @@ import com.spring.security_auth.model.pojo.Customer;
 import com.spring.security_auth.services.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,18 +26,19 @@ public class CustomerController {
         return customers.stream().map(customerMapper::toDto).collect(Collectors.toList());
     }
 
-    @PostMapping("/createCustomer")
+    @PostMapping("/register")
     @ResponseStatus(value = HttpStatus.CREATED)
     public CustomerResponseDto create(@RequestBody CustomerDto dto) {
         Customer customer = customerMapper.toCustomer(dto);
         return customerMapper.toDto(customerService.create(customer));
     }
 
-    /*
-    @PostMapping("/createCustomer")
-    @ResponseStatus(value = HttpStatus.CREATED)
-    public Customer create(@RequestBody Customer customer) {
-        return customerService.create(customer);
-    }*/
+
+    @RequestMapping("/user")
+    public Customer getUserDetailsAfterLogin(Authentication authentication) {
+        return customerService.getUserDetailsAfterLogin(authentication);
+
+    }
+
 
 }

@@ -4,8 +4,11 @@ import lombok.Data;
 
 @Data
 public class CustomerDto {
-    private Long id;
+    private int id;
+    private String name;
     private String email;
-    private String password;
+    private String mobile_number;
+    private String pwd;
     private String role;
+    private String createDt;
 }

@@ -1,5 +1,6 @@
 package com.spring.security_auth.security;
 
+import com.spring.security_auth.model.pojo.Authority;
 import com.spring.security_auth.model.pojo.Customer;
 import com.spring.security_auth.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
@@ -13,9 +14,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Component
 @RequiredArgsConstructor
@@ -28,12 +27,10 @@ public class ProjectUsernamePasswordAuthenticationProvider implements Authentica
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String username = authentication.getName();
         String password = authentication.getCredentials().toString();
-        Optional<Customer> customer = customerRepository.findCustomerByEmail(username);
-        if (customer.isPresent()) {
-            if (passwordEncoder.matches(password, customer.get().getPassword())) {
-                List<GrantedAuthority> authorities = new ArrayList<>();
-                authorities.add(new SimpleGrantedAuthority(customer.get().getRole()));
-                return new UsernamePasswordAuthenticationToken(username, password, authorities);
+        List<Customer> customer = customerRepository.findByEmail(username);
+        if (customer.size() > 0) {
+            if (passwordEncoder.matches(password, customer.get(0).getPwd())) {
+                return new UsernamePasswordAuthenticationToken(username, password, getGrantedAuthorities(customer.get(0).getAuthorities()));
             } else {
                 throw new BadCredentialsException("INVALID_PASSWORD");
             }
@@ -41,6 +38,15 @@ public class ProjectUsernamePasswordAuthenticationProvider implements Authentica
             throw new BadCredentialsException("INVALID_USER");
         }
     }
+
+    private List<GrantedAuthority> getGrantedAuthorities(Set<Authority> authorities) {
+        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
+        for (Authority authority : authorities) {
+            grantedAuthorities.add(new SimpleGrantedAuthority(authority.getName()));
+        }
+        return grantedAuthorities;
+    }
+
 
     @Override
     public boolean supports(Class<?> authentication) {
